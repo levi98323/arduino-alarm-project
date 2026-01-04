@@ -29,6 +29,40 @@ void setup() {
 
  uint8_t frame[8][12] = {0};
 
+ void aktualizujEkran(int stan) {
+  for(int i = 0; i < 8; i++) {
+    for(int j = 0; j < 12; j++) {
+      frame[i][j] = 0;
+    }
+  }
+  switch (stan) {
+    case 0:
+          frame[rzadgood][kolgood] = 1;
+      frame[rzadgood - 1][kolgood - 1] = 1;
+      frame[rzadgood - 2][kolgood - 2] = 1;
+      frame[rzadgood - 1][kolgood + 1] = 1;
+      frame[rzadgood - 2][kolgood + 2] = 1;
+      frame[rzadgood - 3][kolgood + 3] = 1;
+      frame[rzadgood - 4][kolgood + 4] = 1;
+      frame[rzadgood - 5][kolgood + 5] = 1;
+      break;
+
+    case 1:
+          frame[rzadbad][kolbad] = 1;
+      frame[rzadbad + 1][kolbad - 1] = 1;
+      frame[rzadbad + 2][kolbad - 2] = 1;
+      frame[rzadbad - 1][kolbad - 1] = 1;
+      frame[rzadbad - 2][kolbad - 2] = 1;
+      frame[rzadbad - 1][kolbad + 1] = 1;
+      frame[rzadbad - 2][kolbad + 2] = 1;
+      frame[rzadbad + 1][kolbad + 1] = 1;
+      frame[rzadbad + 2][kolbad + 2] = 1;
+      break;
+      
+  }
+  matrix.renderBitmap(frame, 8, 12);
+ }
+
  void loop() {
    unsigned long currentMillis = millis();
 
@@ -55,45 +89,15 @@ void setup() {
     if(mojAlarm.temp > 30) {
     mojAlarm.alarmActive = true;
     } 
-          for(int i = 0 ; i < 8; i++) {
-        for(int j = 0; j < 12; j++) {
-          frame[i][j] = 0;
-        }
-      }
-    
     if(mojAlarm.alarmActive == false) {
-      frame[rzadgood][kolgood] = 1;
-      frame[rzadgood - 1][kolgood - 1] = 1;
-      frame[rzadgood - 2][kolgood - 2] = 1;
-      frame[rzadgood - 1][kolgood + 1] = 1;
-      frame[rzadgood - 2][kolgood + 2] = 1;
-      frame[rzadgood - 3][kolgood + 3] = 1;
-      frame[rzadgood - 4][kolgood + 4] = 1;
-      frame[rzadgood - 5][kolgood + 5] = 1;
-      
-
+      aktualizujEkran(0);
     }
+    else {
+      aktualizujEkran(1);
+    }
+
       
 
-      else {
-
-
-      frame[rzadbad][kolbad] = 1;
-      frame[rzadbad + 1][kolbad - 1] = 1;
-      frame[rzadbad + 2][kolbad - 2] = 1;
-      frame[rzadbad - 1][kolbad - 1] = 1;
-      frame[rzadbad - 2][kolbad - 2] = 1;
-      frame[rzadbad - 1][kolbad + 1] = 1;
-      frame[rzadbad - 2][kolbad + 2] = 1;
-      frame[rzadbad + 1][kolbad + 1] = 1;
-      frame[rzadbad + 2][kolbad + 2] = 1;
-      
-      
-        
-
-      }
-      
-      matrix.renderBitmap(frame, 8, 12);
 
 
 
